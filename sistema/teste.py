@@ -1,20 +1,16 @@
-testelista = ["arroz", "feijao", "batata", "carne"]
+testelista = ["arroz", "feijao", "batata"]
 precolista = [10, 20, 30]
 quantidadeprodutos = [1, 2, 3]
 
+precoTotal = 0
+contador = 0
 
+palavra = "seila"
 
-print(testelista[2])
-
-
-testelista.pop(2)
-
-print("------------------------------------")
-
-print(testelista[2])
-
-
-
+if (type(palavra) == str):
+    print("Deu certo")
+else:
+    print("Deu errado")
 
 
     

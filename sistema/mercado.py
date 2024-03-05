@@ -19,12 +19,27 @@ if (perguntaIniciar == 1):
 
         if (perguntaUsuario == 1):
             produtoNome = input("Digite o nome do produto: ")
-            produtoPreco = float(input("Digite o preço do produto: "))
-            quantidadeProdutos = int(input("Digite a quantidade de produtos: "))
             listaProdutos.append(produtoNome)
-            listaPrecos.append(produtoPreco)
-            listaQuantidade.append(quantidadeProdutos)
+
+            produtoPreco = float(input("Digite o preço do produto: "))
+            if (produtoPreco == float):
+                listaPrecos.append(produtoPreco)
+            else:
+                print("coloque o preco correto")    
+
+            quantidadeProdutos = int(input("Digite a quantidade de produtos: "))
+            if (quantidadeProdutos == int):
+                listaQuantidade.append(quantidadeProdutos)
+            else:
+                print("coloque a quantidade correta")    
+            #listaProdutos.append(produtoNome)
+            #listaPrecos.append(produtoPreco)
+            #listaQuantidade.append(quantidadeProdutos)
             os.system('cls')
+          
+            
+
+                
         
         elif(perguntaUsuario == 2):
             os.system('cls')
