@@ -1,4 +1,5 @@
 import os
+import time
 
 listaProdutos = []
 listaPrecos = []
@@ -18,25 +19,23 @@ if (perguntaIniciar == 1):
 
 
         if (perguntaUsuario == 1):
-            produtoNome = input("Digite o nome do produto: ")
-            listaProdutos.append(produtoNome)
-
-            produtoPreco = float(input("Digite o preço do produto: "))
-            if (produtoPreco == float):
-                listaPrecos.append(produtoPreco)
-            else:
-                print("coloque o preco correto")    
-
-            quantidadeProdutos = int(input("Digite a quantidade de produtos: "))
-            if (quantidadeProdutos == int):
-                listaQuantidade.append(quantidadeProdutos)
-            else:
-                print("coloque a quantidade correta")    
-            #listaProdutos.append(produtoNome)
-            #listaPrecos.append(produtoPreco)
-            #listaQuantidade.append(quantidadeProdutos)
-            os.system('cls')
-          
+                produtoNome = input("Digite o nome do produto: ")
+                try:
+                    produtoPreco = float(input("Digite o preço do produto: "))
+                except ValueError:
+                    print("Coloque um valor válido! \n")
+                    time.sleep(1)
+                   
+                else:
+                    try:
+                        quantidadeProdutos = int(input("Digite a quantidade de produtos: "))
+                    except ValueError:
+                        print("Coloque um valor válido! \n")
+                    else:
+                        listaProdutos.append(produtoNome)
+                        listaPrecos.append(produtoPreco)
+                        listaQuantidade.append(quantidadeProdutos)
+                        os.system('cls')
             
 
                 
@@ -50,14 +49,24 @@ if (perguntaIniciar == 1):
         
         elif(perguntaUsuario == 3):
             print(listaProdutos)
-            perguntaRemover = int(input("Digite o número do produto que quer remover (ex: 1, 2, 3, 4): "))
-            numeroItem = perguntaRemover-1
-            print("O produto "+str(perguntaRemover)+" foi removido com sucesso")
-            listaProdutos.pop(numeroItem)
-            listaPrecos.pop(numeroItem)
-            listaQuantidade.pop(numeroItem)
-            os.system('cls')
 
+            try:
+                perguntaRemover = int(input("Digite o número do produto que quer remover (ex: 1, 2, 3, 4): "))
+
+            except ValueError:
+                time.sleep(0.5)
+                print("coloque um número correto!!")
+
+            else:
+                time.sleep(0.5)
+                numeroItem = perguntaRemover-1
+                print("O produto "+str(perguntaRemover)+" foi removido com sucesso")
+                listaProdutos.pop(numeroItem)
+                listaPrecos.pop(numeroItem)
+                listaQuantidade.pop(numeroItem)
+                os.system('cls')
+            
+            
         
         elif(perguntaUsuario == 4):
 
