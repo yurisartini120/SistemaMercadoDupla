@@ -1,20 +1,27 @@
-testelista = ["arroz", "feijao", "batata"]
-precolista = [10, 20, 30]
-quantidadeprodutos = [1, 2, 3]
+import os
+import time
 
-precoTotal = 0
-contador = 0
-
-palavra = "seila"
-
-if (type(palavra) == str):
-    print("Deu certo")
-else:
-    print("Deu errado")
-
-
+class Carrinho:
+    listaProdutos = []
+    listaPrecos = []
+    listaQuantidade = []
     
 
+produtoNome = input("Digite o nome do produto: ")
+produtoPreco = float(input("Digite o preço do produto: "))
+quantidadeProdutos = int(input("Digite a quantidade de produtos: "))
 
-
+def Adicionar():
     
+    print("Coloque um valor válido! \n")
+    Carrinho.listaProdutos.append(produtoNome)
+    Carrinho.listaPrecos.append(produtoPreco)
+    Carrinho.listaQuantidade.append(quantidadeProdutos)
+
+
+
+print(Adicionar())
+
+print(Carrinho.listaProdutos)
+print(Carrinho.listaPrecos)
+print(Carrinho.listaQuantidade)
