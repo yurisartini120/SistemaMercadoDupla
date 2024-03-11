@@ -1,7 +1,7 @@
 import mysql.connector as mysql
 
 #use para conectar (o banco de dados ja tem q estar criado)
-database = input("Digite um database que você deseja conectar: ")
+database = "teste"
 
 
 conexao = mysql.connect(
@@ -12,19 +12,24 @@ user = 'root',
 password=''
 )
 
-class time:
-        def __init__(self, nome, quantidadePontos):
-            self.nome = nome
-            self.quantidadePontos = quantidadePontos
+cursor = conexao.cursor()
+
+cursor.execute("Create table if not exists  `teste` (`id` int not null auto_increment primary key,`nome` varchar(255) not null, `pontos` int);")
+
+
+
+# class time:
+#         def __init__(self, nome, quantidadePontos):
+#             self.nome = nome
+#             self.quantidadePontos = quantidadePontos
 
             
 
 
-nome = input("Nome do time:")
-quantidadePontos = int(input("Quantidade de pontos: "))
+# nome = input("Nome do time:")
+# quantidadePontos = int(input("Quantidade de pontos: "))
 
-flamengo = time(nome=nome, quantidadePontos=quantidadePontos)
-
+# flamengo = time(nome=nome, quantidadePontos=quantidadePontos)
 
 
 
