@@ -1,21 +1,22 @@
 import time 
 import random
+from tabulate import tabulate
 
-# print("Casa X Desafiante")
-# time.sleep(1)
-# time1 = input("Time da casa:")
-# time.sleep(1)
-# time2 = input("Time Desafiante:")
+print("Casa X Desafiante")
+time.sleep(1)
+time1 = input("Time da casa:")
+time.sleep(1)
+time2 = input("Time Desafiante:")
 
-# print("------------------------------------------")
-# jogoIda = random.randint(1,3)
-# print("Jogo ida =", jogoIda)
-# jogoVolta = random.randint(1,3)
-# print("Jogo volta =", jogoVolta)
-# print("------------------------------------------")
+print("------------------------------------------")
+jogoIda = random.randint(1,3)
+print("Jogo ida =", jogoIda)
+jogoVolta = random.randint(1,3)
+print("Jogo volta =", jogoVolta)
+print("------------------------------------------")
 
-# pontuacao = jogoIda + jogoVolta
-# print("Pontuação final =" ,pontuacao)
+pontuacao = jogoIda + jogoVolta
+print("Pontuação final =" ,pontuacao)
 
 
 class jogo:
@@ -23,6 +24,7 @@ class jogo:
     timeCasa = input("time da casa:")
     timeDesafiante = input("time desafiante:")
     pontos = 0
+
 
     golsCasa = random.randint(1,3)
     golsDesafiante = random.randint(1,3)
@@ -44,6 +46,17 @@ class jogo:
         pontos += 3
         print("pontuação: +", pontos)
     print("------------------------------------------")
-        
 
+
+    
+        
+lista = [
+    
+    ["Times", "vitorias", "mundial"],
+    ["São Paulo", 688, 3],
+    ["Flamengo", 671, 2],
+    ["Palmeiras", 3457, 0]
+]
+
+print(tabulate(lista, headers= 'firstrow'))
 
