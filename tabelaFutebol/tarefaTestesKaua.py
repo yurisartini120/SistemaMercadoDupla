@@ -11,20 +11,20 @@ class time:
             
 class TabelaCampeonato:
     
-    def criarTabela():
+    def criarTabela(self):
         cursor.execute("Create table if not exists  `teste2` (`id` int not null auto_increment primary key,`nome` varchar(255) not null, `partidas` int, `V` int, `D` int, `E` int, `SG` int, `pontos` int);")
         
-    def adicionarTime():
+    def adicionarTime(self, timeNome):
         contador = 0
         contadorLimite = int(input("Digite quantos times você deseja adicionar: "))
         while (contador < contadorLimite):
             timeNome = input(f"Digite o nome do {contador+1}° time: ").lower()
-            cursor.execute("insert into teste2 (nome, partidas, V, D, E, SG, pontos) VALUES (%s, %s, %s, %s, %s, %s, %s);", (timeNome , 0, 0, 0, 0, 0, 0))
-            conexao.commit()
+            self.cursor.execute("insert into teste2 (nome, partidas, V, D, E, SG, pontos) VALUES (%s, %s, %s, %s, %s, %s, %s);", (timeNome , 0, 0, 0, 0, 0, 0))
+            self.conexao.commit()
             
             contador+=1
 
-    def visualizarTabela():  
+    def visualizarTabela(self):  
         
         
     
