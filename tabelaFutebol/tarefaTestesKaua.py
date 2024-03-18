@@ -82,66 +82,60 @@ class TabelaCampeonato:
             time1 = input("Digite o nome do time 1: ").lower()
             time2 = input("Digite o nome do time 2: ").lower()
 
-            cursor.execute("Select `nome` from teste2")
-            nomesTime = cursor.fetchall()
-            times = []
+            cursor.execute("Select `nome`, `SG` from teste2")
+            dadosTimes = cursor.fetchall()
+            times = {row[0].lower(): row[1] for row in dadosTimes}
 
-            for i, result in enumerate(nomesTime, start=1):
-                times.append(result[0].lower())
-
-
-            if any(time in times for time in (time1, time2)):
+            if time1 in times and time2 in times:
                 break
             else:
                 print("Um ou ambos os times não estão cadastrados. Por favor, tente novamente.")
 
-        golstime1= random.choice(valores)
-        golstime2= random.choice(valores)
+        golstime1 = random.choice(valores)
+        golstime2 = random.choice(valores)
         mensagemResultado = (f"O resultado foi: \n {time1} {golstime1} X {golstime2} {time2}")
-        
-        if (golstime1 > golstime2):
-            diferencaPositivo = golstime1-golstime2
-            diferencaNegativo = golstime2-golstime1
-            cursor.execute(f"update teste2 set pontos = pontos+3 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set SG = SG+{diferencaPositivo} where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set V = V+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set D = D+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set SG = SG+{diferencaNegativo} where `nome` = '{time2}' ")
+
+        if golstime1 > golstime2:
+            diferencaPositivo = golstime1 - golstime2
+            diferencaNegativo = golstime2 - golstime1
+            
+
+            cursor.execute(f"update teste2 set pontos = pontos+3, partidas = partidas+1, SG = SG+{diferencaPositivo}, V = V+1 where `nome` = '{time1}' ")
+            
+            
+            cursor.execute(f"update teste2 set D = D+1, partidas = partidas+1 where `nome` = '{time2}' ")
+            if times[time2] > 0:
+                cursor.execute(f"update teste2 set SG = SG-{diferencaNegativo} where `nome` = '{time2}' ")
             
             conexao.commit()
             print(mensagemResultado)
 
-        elif (golstime1 < golstime2):
-            diferencaPositivo = golstime2-golstime1
-            diferencaNegativo = golstime1-golstime2
+        elif golstime1 < golstime2:
+            diferencaPositivo = golstime2 - golstime1
+            diferencaNegativo = golstime1 - golstime2
             
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set pontos = pontos+3 where `nome` = '{time2}'")
-            cursor.execute(f"update teste2 set SG = SG+{diferencaPositivo} where `nome` = '{time2}'")
-            cursor.execute(f"update teste2 set V = V+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set D = D+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set SG = SG+{diferencaNegativo} where `nome` = '{time1}' ")
+            # Atualizar as estatísticas para o time vencedor
+            cursor.execute(f"update teste2 set partidas = partidas+1, pontos = pontos+3, SG = SG+{diferencaPositivo}, V = V+1 where `nome` = '{time2}' ")
+            
+            # Atualizar as estatísticas para o time perdedor
+            cursor.execute(f"update teste2 set D = D+1, partidas = partidas+1 where `nome` = '{time1}' ")
+            if times[time1] > 0:
+                cursor.execute(f"update teste2 set SG = SG-{diferencaNegativo} where `nome` = '{time1}' ")
             
             conexao.commit()
             print(mensagemResultado)
 
-        elif (golstime1 == golstime2):
+        elif golstime1 == golstime2:
             print(mensagemResultado)
-            cursor.execute(f"update teste2 set pontos = pontos+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set E = E+1 where `nome` = '{time1}' ")
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time1}' ")
-
-            cursor.execute(f"update teste2 set pontos = pontos+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set E = E+1 where `nome` = '{time2}' ")
-            cursor.execute(f"update teste2 set partidas = partidas+1 where `nome` = '{time2}' ")
-
+            # Atualizar as estatísticas para ambos os times em caso de empate
+            cursor.execute(f"update teste2 set pontos = pontos+1, E = E+1, partidas = partidas+1 where `nome` = '{time1}' ")
+            cursor.execute(f"update teste2 set pontos = pontos+1, E = E+1, partidas = partidas+1 where `nome` = '{time2}' ")
+            
             conexao.commit()
             print("EMPATE!")
 
         conexao.commit()
+
 
     def verLider():
         cursor.execute("Select `nome`, `partidas`, `V`, `D`, `E`, `SG`, `pontos` from teste2 order by `pontos` desc limit 1 ")
@@ -160,7 +154,7 @@ class TabelaCampeonato:
 
         conexao.commit()
 
-        dados = [ rebaixados]
+        dados = [rebaixados]
 
         tabela = tabulate(dados, headers="firstrow", tablefmt="grid")
         print(tabela)
